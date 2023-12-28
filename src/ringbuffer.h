@@ -6,7 +6,7 @@
 
 typedef struct ring_buffer_t {
     void * data;            // data rb
-    uint32_t capacity;      // maximum capacity in elements
+    uint32_t capacity;      // maximum capacity in element count (not bytes)
     uint32_t item_size;     // size of contained items in bytes
     uint32_t size;          // current number of elements stored in ring rb
     uint32_t read;          // read index of data array

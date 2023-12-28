@@ -1,2 +1,3 @@
-1. Refactor data structure error code into common format.\
-    in most cases errors like ERR_EMPTY, ERR_FULL, can be shared
+1. Add test cases for ring buffer
+2. Remove memcpy dependency from containers
+3. Implement list type data structure
