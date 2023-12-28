@@ -4,6 +4,7 @@
 
 #include "stdint.h"
 #include "stdbool.h"
+#include "stddef.h" // for size_t
 
 typedef enum NL_RESULT {
     NL_OK = 0,

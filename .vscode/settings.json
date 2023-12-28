@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "nlib_defs.h": "c"
+        "nlib_defs.h": "c",
+        "vector": "c"
     }
 }

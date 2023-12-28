@@ -1,12 +1,5 @@
 
 #include "stack.h"
-#include "string.h"
-#include "stdio.h"
-
-// implementation details
-// stack pointer 'at rest' points to next write block
-// in the case of a full stack that means pointer is pointing 'past' the stack
-// so to pop, we have to first decrement the pointer, then read out the data
 
 NL_RESULT stack_init(stack_t * const stack, size_t capacity, size_t item_size, uint8_t * const buffer){
     if (capacity == 0 || item_size == 0){
@@ -28,7 +21,9 @@ NL_RESULT stack_push(stack_t * const stack, const void * const item){
     }
 
     // insert item into stack memory
-    (void)memcpy(stack->data+(stack->top * stack->item_size), item, stack->item_size);
+    for (uint32_t i = 0; i < stack->item_size; ++i){
+        *(stack->data+(stack->top * stack->item_size)+i) = *(((uint8_t *)item)+i);
+    }
 
     stack->top++;
     return NL_OK;
@@ -39,7 +34,9 @@ NL_RESULT stack_pop(stack_t * const stack, void * const item){
         return NL_ERR_EMPTY;
     }
     stack->top--;
-    (void)memcpy(item, stack->data+(stack->top * stack->item_size), stack->item_size);
+    for (size_t i = 0; i < stack->item_size; ++i){
+        *(((uint8_t *)item)+i) = *(stack->data+(stack->top * stack->item_size) + i);
+    }
     return NL_OK;
 }
 
@@ -47,11 +44,11 @@ NL_RESULT stack_peek(const stack_t * const stack, void * const item){
         if (stack->top == 0){
         return NL_ERR_EMPTY;
     }
-    size_t top = (stack->top - 1);
 
-    // copy data into item (in-out param)
-    (void)memcpy(item, stack->data+(top * stack->item_size), stack->item_size);
-
+    // apologies for this one
+    for (size_t i = 0; i < stack->item_size; ++i){
+        *(((uint8_t *)item)+i) = *(stack->data+((stack->top-1) * stack->item_size) + i);
+    }
     return NL_OK;
 }
 

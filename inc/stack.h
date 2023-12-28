@@ -3,7 +3,6 @@
 #define INC_STACK_H
 
 #include "nlib_defs.h"
-#include "stddef.h"
 
 // control block for stack
 typedef struct stack_t {
